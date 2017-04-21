@@ -1,5 +1,7 @@
 #!/bin/bash
 googleApiKey=YOUR_GOOGLE_API_KEY
+googlePlaceUrl="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latlng&types=establishment&rankby=distance&language=en_US&key=$googleApiKey"
+
 
 # check input parameters exists
 if [ -z "$1" ]; then
@@ -73,9 +75,8 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   ext="${filename##*.}"
   file="${filename%.*}"
 
-  googlePlaceUrl="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latlng&types=establishment&rankby=distance&language=en_US&key=$googleApiKey"
 
-  scene=$(`wget -qO- $googlePlaceUrl` |./JSON.sh|grep '\["results",0,"name"\]'|awk -F ' ' '{print $2}'|tr -d "\"")
+  scene=$(wget -qO- $googlePlaceUrl |./JSON.sh|grep '\["results",0,"name"\]'|awk -F ' ' '{print $2}'|tr -d "\"")
 
   if [ ! -z "$scene " ]; then
     newfilename=$scene"_"$file.$ext
