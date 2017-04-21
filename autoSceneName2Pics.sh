@@ -73,10 +73,9 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   ext="${filename##*.}"
   file="${filename%.*}"
 
-  googlePlaceUrl="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latlng&types=establishment&rankby=distance&language=zh_TW&key=$googleApiKey"
+  googlePlaceUrl="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$latlng&types=establishment&rankby=distance&language=en_US&key=$googleApiKey"
 
-  curl $googlePlaceUrl > tmp.html
-  scene=$(cat tmp.html |./JSON.sh|grep '\["results",0,"name"\]'|awk -F ' ' '{print $2}'|tr -d "\"")
+  scene=$(`wget -qO- $googlePlaceUrl` |./JSON.sh|grep '\["results",0,"name"\]'|awk -F ' ' '{print $2}'|tr -d "\"")
 
   if [ ! -z "$scene " ]; then
     newfilename=$scene"_"$file.$ext
