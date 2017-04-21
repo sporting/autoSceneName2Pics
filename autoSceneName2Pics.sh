@@ -1,4 +1,5 @@
 #!/bin/bash
+googleApiKey=YOUR_GOOGLE_API_KEY
 
 # check input parameters exists
 if [ -z "$1" ]; then
@@ -62,7 +63,6 @@ if [ $backupFlag -eq "1" ]; then
   done < $strucList2
 fi
 
-googleApiKey=YOUR_GOOGLE_API_KEY
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
   filename=$(echo $line|awk -F '@' '{print $2}')
