@@ -81,7 +81,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
   if [ ! -z "$scene " ]; then
     newfilename=$scene"_"$file.$ext
   
-    echo "mv "$filename" $newfilename" >> $mvList
+    echo "mv "$searchFolder/$filename" $searchFolder/$newfilename" >> $mvList
   fi
 done < $strucList2
 
